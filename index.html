@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Helping Hand — Make a Difference Today</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F9F5EE;
+      --green: #2D5016;
+      --green-light: #4A7C28;
+      --gold: #C8962E;
+      --text: #1A1A1A;
+      --muted: #6B6B6B;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 60px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--green);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--gold); }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      padding: 80px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.1;
+      color: var(--green);
+      margin-bottom: 24px;
+    }
+    .hero-text h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-text p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 36px;
+      max-width: 420px;
+    }
+
+    /* DONATE BUTTON */
+    .donate-btn {
+      display: inline-block;
+      background: var(--green);
+      color: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 16px 36px;
+      border-radius: 4px;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      transition: background 0.2s, transform 0.15s;
+      cursor: pointer;
+    }
+    .donate-btn:hover {
+      background: var(--green-light);
+      transform: translateY(-2px);
+    }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+    .stat-item .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      color: var(--green);
+      font-weight: 700;
+    }
+    .stat-item .label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    /* VISUAL SIDE */
+    .hero-visual {
+      position: relative;
+      height: 460px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--green) 0%, #1a3a08 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .visual-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 32px;
+      color: white;
+      text-align: center;
+      z-index: 1;
+      width: 280px;
+    }
+    .visual-card .heart {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .visual-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .visual-card p {
+      font-size: 14px;
+      opacity: 0.75;
+      line-height: 1.5;
+    }
+    .gold-tag {
+      display: inline-block;
+      background: var(--gold);
+      color: white;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* GA DEBUG PANEL */
+    #ga-debug {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #1a1a1a;
+      color: #00ff88;
+      font-family: monospace;
+      font-size: 12px;
+      padding: 16px 20px;
+      border-radius: 8px;
+      max-width: 340px;
+      z-index: 9999;
+      border: 1px solid #333;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    #ga-debug .debug-title {
+      color: #888;
+      margin-bottom: 8px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .debug-event {
+      padding: 4px 0;
+      border-bottom: 1px solid #222;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .hero { grid-template-columns: 1fr; padding: 40px 24px; gap: 40px; }
+      .hero-visual { height: 300px; }
+      .stats { flex-wrap: wrap; gap: 24px; }
+      #ga-debug { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== NAVIGATION ========== -->
+<nav>
+  <div class="logo">Helping<span>Hand</span></div>
+  <div style="font-size:13px; color:var(--muted);">Non-profit organization</div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>Give hope,<br/>change <em>lives</em><br/>forever.</h1>
+    <p>Every dollar you donate goes directly to families in need. Together we've already changed thousands of lives — help us reach even more.</p>
+
+    <!-- FUNDRAISE UP BUTTON — replace href value with your actual campaign ID -->
+    <a href="#XJKDHSTQ" class="donate-btn" style="display:none">Donate Now</a>
+
+    <div class="stats">
+      <div class="stat-item">
+        <div class="num">$2.4M</div>
+        <div class="label">Raised</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">14K+</div>
+        <div class="label">Donors</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">89</div>
+        <div class="label">Countries</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="visual-card">
+      <div class="gold-tag">Live Impact</div>
+      <div class="heart">🫶</div>
+      <h3>Your donation matters</h3>
+      <p>Real-time tracking of how your contributions change lives around the world.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GA DEBUG PANEL ========== -->
+<div id="ga-debug">
+  <div class="debug-title">📊 GA4 Events Log</div>
+  <div id="debug-log">Waiting for events...</div>
+</div>
+
+
+<!-- ======================================================
+     STEP 1: Google Analytics 4 (gtag.js)
+     REPLACE G-XXXXXXXXXX with your actual GA4 Measurement ID
+     ====================================================== -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');  // <-- replace with your GA4 ID
+</script>
+
+
+<!-- ======================================================
+     STEP 2: Fundraise Up Widget
+     (using the code provided by Helping Hand)
+     ====================================================== -->
+<script>
+(function(w,d,s,n,a){if(!w[n]){var l='call,catch,on,once,set,then,track'
+.split(','),i,o=function(n){return'function'==typeof n?o.l.push([arguments])&&o
+:function(){return o.l.push([n,arguments])&&o}},t=d.getElementsByTagName(s)[0],
+j=d.createElement(s);j.async=!0;j.src='https://cdn.fundraiseup.com/widget/'+a;
+t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=4;o.h=w.location.href;o.l=[];
+for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
+})(window,document,'script','FundraiseUp','AEMZUDUM');
+</script>
+
+
+<!-- ======================================================
+     STEP 3: Fundraise Up → GA4 Event Integration
+     Listens to FundraiseUp JS API events and pushes them
+     to dataLayer (which GA4 reads automatically)
+     ====================================================== -->
+<script>
+  // Helper: show events in the debug panel on screen
+  function logDebug(eventName, data) {
+    var log = document.getElementById('debug-log');
+    var time = new Date().toLocaleTimeString();
+    var line = document.createElement('div');
+    line.className = 'debug-event';
+    line.textContent = '[' + time + '] ' + eventName + (data ? ' · ' + JSON.stringify(data) : '');
+    if (log.textContent === 'Waiting for events...') log.textContent = '';
+    log.prepend(line);
+  }
+
+  // Wait for FundraiseUp to be ready, then attach listeners
+  window.addEventListener('load', function () {
+
+    // ----- EVENT 1: Checkout Opened -----
+    // Fires when user clicks the donate button and checkout opens
+    FundraiseUp.on('donationFormOpened', function (data) {
+      // Push to dataLayer → GA4 picks this up as a custom event
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'checkout_opened',
+        fundraise_campaign: data && data.campaign ? data.campaign.code : 'unknown'
+      });
+
+      // Also send directly via gtag (belt + suspenders approach)
+      gtag('event', 'checkout_opened', {
+        event_category: 'Fundraise Up',
+        event_label: 'Donate button clicked'
+      });
+
+      logDebug('checkout_opened', null);
+    });
+
+    // ----- EVENT 2: Donation Completed -----
+    // Fires after a successful (including test) donation
+    FundraiseUp.on('donationComplete', function (data) {
+      var amount  = data && data.amount  ? data.amount  : 0;
+      var currency= data && data.currency? data.currency: 'USD';
+      var campCode= data && data.campaign ? data.campaign.code : 'unknown';
+
+      // Push purchase event — GA4 ecommerce standard
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'purchase',
+        ecommerce: {
+          currency: currency,
+          value: amount,
+          transaction_id: data && data.donationId ? data.donationId : Date.now().toString(),
+          items: [{
+            item_name: 'Donation',
+            item_category: 'Fundraise Up',
+            item_id: campCode,
+            price: amount,
+            quantity: 1
+          }]
+        }
+      });
+
+      // Also send directly via gtag
+      gtag('event', 'purchase', {
+        currency: currency,
+        value: amount,
+        transaction_id: data && data.donationId ? data.donationId : Date.now().toString(),
+        items: [{
+          item_name: 'Donation – ' + campCode,
+          price: amount,
+          quantity: 1
+        }]
+      });
+
+      logDebug('purchase / donation_complete', { amount: amount, currency: currency });
+    });
+
+  });
+</script>
+
+</body>
+</html>
